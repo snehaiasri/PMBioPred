@@ -21,7 +21,7 @@ st.markdown("---")
 st.text("")
 
 # Load model, scaler, descriptor columns
-model = joblib.load("static/models/bioactivity_model.pkl")
+
 scaler = joblib.load("static/models/scaler.pkl")
 with open("static/descriptor_columns.txt") as f:
     descriptor_names = f.read().splitlines()
@@ -67,6 +67,8 @@ if st.button("Predict"):
         input_df = pd.read_csv(uploaded_file)
         results = []
 
+        model = joblib.load(f"static/models/{target}_bioactivity_model.pkl")
+        
         for i, row in input_df.iterrows():
             desc = compute_descriptors(row["SMILES"])
             if desc:
