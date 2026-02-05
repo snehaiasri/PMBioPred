@@ -17,11 +17,26 @@ st.markdown("---")
 st.text("")
 
 
+st.subheader("User Manual")
+
 file_path = "static/PM-BioPred_Tutorial.pdf"
-with open(file_path,"rb") as f:
 
-    base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+with open(file_path, "rb") as f:
+    st.download_button(
+        label="📄 Open / Download PDF",
+        data=f,
+        file_name="help.pdf",
+        mime="application/pdf"
+    )
 
-pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="800" type="application/pdf"></iframe>'
+st.markdown(
+    """
+    <p>
+    After clicking, your browser will open the PDF in a new tab.
+    </p>
+    """,
+    unsafe_allow_html=True
+)
 
-st.markdown(pdf_display, unsafe_allow_html=True)
+
+
