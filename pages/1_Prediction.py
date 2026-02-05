@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 from rdkit import Chem
 from rdkit.Chem import Descriptors
-import io
+import numpy as np
 
 st.set_page_config( page_title="PM-BioPred", initial_sidebar_state="expanded", layout="wide")
 col1, col2, col3 = st.columns([1.5, 20, 2])
@@ -22,7 +22,6 @@ st.text("")
 
 # Load model, scaler, descriptor columns
 
-scaler = joblib.load("static/models/scaler.pkl")
 with open("static/descriptor_columns.txt") as f:
     descriptor_names = f.read().splitlines()
 
@@ -35,8 +34,6 @@ descriptor_funcs = {
     "TPSA": Descriptors.TPSA,
     "NumRotatableBonds": Descriptors.NumRotatableBonds
 }
-
-
 
 st.markdown("### Predict Bioactivity of Compound against Selected Target Organisms")
 
@@ -54,6 +51,10 @@ st.download_button(
 
 target = st.selectbox("Select Target Organism", ["Bacteria", "Fungi", "Virus", "Plant"])
 
+@st.cache_resource
+def load_model(target):
+    return joblib.load(f"static/models/{target}.pkl")
+
 uploaded_file = st.file_uploader("Upload CSV with columns: `molecule_id`, `SMILES`", type=["csv"])
 # Function to compute RDKit descriptors
 def compute_descriptors(smiles):
@@ -67,12 +68,12 @@ if st.button("Predict"):
         input_df = pd.read_csv(uploaded_file)
         results = []
 
-        model = joblib.load(f"static/models/{target}_bioactivity_model.pkl")
+        model = load_model(target)
         
         for i, row in input_df.iterrows():
             desc = compute_descriptors(row["SMILES"])
             if desc:
-                scaled = scaler.transform([desc])
+                scaled = np.array(desc).reshape(1, -1)
                 prob = model.predict_proba(scaled)[0]
                 pred = model.predict(scaled)[0]
                 results.append({
