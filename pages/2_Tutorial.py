@@ -16,7 +16,7 @@ with col3:
 st.markdown("---")
 st.text("")
 
-st.title("📘 PM-BioPred: User Tutorial")
+st.title("PM-BioPred: User Tutorial")
 
 st.write(
 """
@@ -130,15 +130,6 @@ st.write("Higher probability = higher confidence in prediction.")
 
 st.subheader("Exporting Results")
 st.write("Click **Download** (built-in browser table download) to save results.")
-
-st.header("8. Next Steps")
-st.write("You can now take **Active-predicted compounds** forward for:")
-st.markdown("""
-✅ Molecular docking  
-✅ Molecular dynamics  
-✅ Laboratory testing  
-✅ Lead optimization  
-""")
 
 st.text("")
 st.markdown("<div style='background-color:#32CD32; text-align:center'><p style='color:white'>Copyright © 2025 ICAR-Indian Agricultural Statistics Research Institute, New Delhi-110012. All rights reserved.</p></div>", unsafe_allow_html=True)
