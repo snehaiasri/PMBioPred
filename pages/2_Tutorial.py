@@ -139,3 +139,6 @@ st.markdown("""
 ✅ Laboratory testing  
 ✅ Lead optimization  
 """)
+
+st.text("")
+st.markdown("<div style='background-color:#32CD32; text-align:center'><p style='color:white'>Copyright © 2025 ICAR-Indian Agricultural Statistics Research Institute, New Delhi-110012. All rights reserved.</p></div>", unsafe_allow_html=True)
