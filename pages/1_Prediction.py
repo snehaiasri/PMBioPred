@@ -95,7 +95,7 @@ if st.button("Predict"):
                 })
 
         result_df = pd.DataFrame(results)
-        st.dataframe(result_df)
+        st.dataframe(result_df, hide_index = True)
 
 
     
